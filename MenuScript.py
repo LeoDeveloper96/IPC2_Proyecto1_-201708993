@@ -6,6 +6,7 @@ from tkinter import filedialog
 import xml.etree.ElementTree as ET
 from PatronScript import Patron
 from pip._vendor.distlib.compat import raw_input
+import webbrowser
 import os
 
 
@@ -54,10 +55,11 @@ class Menu:
                 piso = input("\n" + "Ingrese el nombre del piso" + "\n")
                 cod = input("Ingrese el codigo del patron" + "\n")
                 self.mostrarPatron(piso, cod)
+                self.subMenu1()
             elif entrada == "3":
                 piso = input("\n" + "Ingrese el nombre del piso" + "\n")
                 cod = input("Ingrese el nuevo codigo del patron" + "\n")
-                self.nuevoPatron(piso,cod)
+                self.nuevoPatron(piso, cod)
                 self.subMenu1()
             elif entrada == "4":
                 print("\n")
@@ -128,19 +130,21 @@ class Menu:
         patron = re.sub('\n', '', patron_seleccionado.datos.patron)
         contador_puerto = 0
         contador = 1
-        patron_separado = re.findall('.{'+str(columnas) + '}', patron)
+        patron_separado = re.findall('.{' + str(columnas) + '}', patron)
         a = 1
         for fila in patron_separado:
             for caracter in fila:
                 if caracter.lower() == "w":
-                    contenido += "<TD PORT=\"f" + str(contador_puerto) + "\" bgcolor=\"white\" width=\"25\" height=\"25\" fixedsize=\"true\"></TD>\n"
+                    contenido += "<TD PORT=\"f" + str(
+                        contador_puerto) + "\" bgcolor=\"white\" width=\"25\" height=\"25\" fixedsize=\"true\"></TD>\n"
                     contador_puerto += 1
                 else:
-                    contenido += "<TD PORT=\"f" + str(contador_puerto) + "\" bgcolor=\"black\" width=\"25\" height=\"25\" fixedsize=\"true\"></TD>\n"
+                    contenido += "<TD PORT=\"f" + str(
+                        contador_puerto) + "\" bgcolor=\"black\" width=\"25\" height=\"25\" fixedsize=\"true\"></TD>\n"
                     contador_puerto += 1
             contador += 1
             contenido += "</TR> \n"
-            contenido +="</TABLE >>];\n \n"
+            contenido += "</TABLE >>];\n \n"
             if contador <= filas:
                 contador_struct += 1
                 contenido += "struct" + str(contador_struct) + " [label=<" + "\n"
@@ -163,8 +167,9 @@ class Menu:
         file = open("grafico.dot", "w+")
         file.write(contenido)
         file.close()
-        os.system('cmd /k "dot -Tpng grafico.dot -o grafico.png"')
-        os.system('cmd /k "grafico.png"')
+        os.system('cmd /C "dot -Tpng grafico.dot -o grafico.png"')
+        ruta = os.getcwd()
+        webbrowser.open(ruta + '\\grafico.png')
 
     def cargarArchivo(self):
         root = tk.Tk()
