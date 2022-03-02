@@ -21,6 +21,7 @@ class ListaEnlazada:
             iterador = iterador.siguiente
         iterador.siguiente = Nodo(datos, None)
 
+    # devuelve el tamaño de la lista
     def get_length(self):
         contador = 0
         iterador = self.cabeza
@@ -68,4 +69,34 @@ class ListaEnlazada:
             yield nodo
             nodo = nodo.siguiente
 
+    # buscar un piso en la lista por nombre
+    def buscarLista(self, dato):
+        position = 0
+        encontrado = 0
+        nodo = None
+        if self.cabeza is None:
+            print("No existe la lista")
+        else:
+            nodo_temp = self.cabeza
+            while nodo_temp is not None:
+                position = position + 1
+                if nodo_temp.datos.nombre == dato:
+                    nodo = nodo_temp
+                    encontrado = 1
+                nodo_temp = nodo_temp.siguiente
+        if encontrado == 0:
+            print("El valor no existe en la lista")
+        else:
+            # devuelvo el piso
+            return nodo
 
+    # buscar un patron en la lista por nombre
+    def buscarPatron(self, piso, cod):
+        patron_seleccionado = None
+        iterador = piso.datos.patrones.cabeza
+        while iterador:
+            if iterador.datos.cod == cod:
+                patron_seleccionado = iterador
+                break
+            iterador = iterador.siguiente
+        return patron_seleccionado

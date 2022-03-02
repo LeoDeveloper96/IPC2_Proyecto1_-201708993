@@ -12,28 +12,23 @@ import os
 
 class Menu:
     lista_pisos = ListaEnlazada()
+    nuevo_patron = None
+    nuevo_piso = None
 
     def menu(self):
         print("\n")
         print("1 Cargar Archivo")
         print("2 Opciones Patron")
-        print("3 Seleccionar Nuevo codigo")
-        print("4 Mostrar instrucciones")
-        print("5 Salir")
+        print("3 Salir")
         entrada = input("Ingrese un numero 1-5" + "\n")
         patron = "[1-5]{1}"
         if re.search(patron, entrada):
             if entrada == "1":
                 self.cargarArchivo()
                 self.menu()
-            elif entrada == "2":
+            elif entrada =="2":
                 self.subMenu1()
             elif entrada == "3":
-                self.cargarArchivo()
-                self.menu()
-            elif entrada == "4":
-                pass
-            elif entrada == "5":
                 raw_input("Presione una tecla" + "\n")
         else:
             self.menu()
@@ -57,9 +52,9 @@ class Menu:
                 self.mostrarPatron(piso, cod)
                 self.subMenu1()
             elif entrada == "3":
-                piso = input("\n" + "Ingrese el nombre del piso" + "\n")
-                cod = input("Ingrese el nuevo codigo del patron" + "\n")
-                self.nuevoPatron(piso, cod)
+                nuevo_piso = input("\n" + "Ingrese el nombre del piso" + "\n")
+                nuevo_cod = input("Ingrese el nuevo codigo del patron" + "\n")
+                self.nuevoPatron(nuevo_piso, nuevo_cod)
                 self.subMenu1()
             elif entrada == "4":
                 print("\n")
@@ -74,8 +69,12 @@ class Menu:
             for patron in piso.datos.patrones:
                 print("--->" + patron.datos.cod)
 
-    def nuevoPatron(self, piso, cod):
-        pass
+    def nuevoPatron(self, nuevo_piso, nuevo_cod):
+        # aqui busco el piso segun el nuevo nombre
+        piso_seleccionado = self.lista_pisos.buscarLista(nuevo_piso)
+        patron = self.lista_pisos.buscarPatron(piso_seleccionado, nuevo_cod)
+        self.nuevo_piso = piso_seleccionado
+        self.nuevo_patron = patron
 
     def subMenu2(self):
         print("\n")
@@ -102,23 +101,8 @@ class Menu:
 
     def mostrarPatron(self, piso, cod):
         contenido = ""
-        piso_seleccionado = None
-        patron_seleccionado = None
-        iterador = self.lista_pisos.cabeza
-        while iterador:
-            if iterador.datos.nombre == piso:
-                piso_seleccionado = iterador
-                break
-            iterador = iterador.siguiente
-
-        # obtengo el patron seleccionado
-        iterador = piso_seleccionado.datos.patrones.cabeza
-        while iterador:
-            if iterador.datos.cod == cod:
-                patron_seleccionado = iterador
-                break
-            iterador = iterador.siguiente
-
+        piso_seleccionado = self.lista_pisos.buscarLista(piso)
+        patron_seleccionado = self.lista_pisos.buscarPatron(piso_seleccionado,cod)
         contenido += "graph " + str(piso) + "{" + "\n"
         contenido += "node [shape=plain] \n splines=false \n"
         contador_struct = 1
