@@ -1,5 +1,4 @@
 from ListaEnlazadaScript import ListaEnlazada
-import re
 from pip._vendor.distlib.compat import raw_input
 import webbrowser
 import os
