@@ -1,15 +1,17 @@
 from NodoScript import Nodo
 
+
 class ListaEnlazada:
     def __init__(self):
         self.cabeza = None
+        self.cola = None
 
-    #insertar al principio
+    # insertar al principio
     def preppend(self, datos):
         nodo = Nodo(datos, self.cabeza)
         self.cabeza = nodo
 
-    #insertar al final
+    # insertar al final
     def append(self, datos):
         if self.cabeza is None:
             self.cabeza = Nodo(datos, None)
@@ -36,7 +38,7 @@ class ListaEnlazada:
         conteo = 0
         iterador = self.cabeza
         while iterador:
-            if conteo == indice -1:
+            if conteo == indice - 1:
                 iterador.siguiente = iterador.siguiente.siguiente
                 break
             iterador = iterador.siguiente
@@ -51,10 +53,19 @@ class ListaEnlazada:
         contador = 0
         iterador = self.cabeza
         while iterador:
-            if contador == indice -1:
-                nodo = Nodo(datos,  iterador.siguiente)
+            if contador == indice - 1:
+                nodo = Nodo(datos, iterador.siguiente)
                 iterador.siguiente = nodo
                 break
 
             iterador = iterador.siguiente
             contador += 1
+
+    # iterar sobre la lista
+    def __iter__(self):
+        nodo = self.cabeza
+        while nodo:
+            yield nodo
+            nodo = nodo.siguiente
+
+

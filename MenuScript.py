@@ -38,30 +38,42 @@ class Menu:
             self.menu()
 
     def subMenu1(self):
-
         print("\n")
         print("-----------------------------------------")
         print("1 Mostrar listado de pisos y patrones disponibles")
         print("2 Mostrar patron")
-        print("3 Nuevo piso y patron")
+        print("3 Seleccionar nuevo patron")
         print("4 Regresar al menu principal...")
         entrada = input("Ingrese un numero 1-4" + "\n")
         patron = "[1-4]{1}"
         if re.search(patron, entrada):
             if entrada == "1":
-                pass
+                self.mostrarPisos()
+                self.subMenu1()
             elif entrada == "2":
                 piso = input("\n" + "Ingrese el nombre del piso" + "\n")
                 cod = input("Ingrese el codigo del patron" + "\n")
                 self.mostrarPatron(piso, cod)
             elif entrada == "3":
-                pass
+                piso = input("\n" + "Ingrese el nombre del piso" + "\n")
+                cod = input("Ingrese el nuevo codigo del patron" + "\n")
+                self.nuevoPatron(piso,cod)
+                self.subMenu1()
             elif entrada == "4":
                 print("\n")
                 print("-----------------------------------------")
                 self.menu()
             else:
                 self.menu()
+
+    def mostrarPisos(self):
+        for piso in self.lista_pisos:
+            print(piso.datos.nombre)
+            for patron in piso.datos.patrones:
+                print("--->" + patron.datos.cod)
+
+    def nuevoPatron(self, piso, cod):
+        pass
 
     def subMenu2(self):
         print("\n")
@@ -74,7 +86,7 @@ class Menu:
         patron = "[1-6]{1}"
         if re.search(patron, entrada):
             if entrada == "1":
-                pass
+                self.cargarArchivo()
             elif entrada == "2":
                 pass
             elif entrada == "3":
@@ -153,7 +165,7 @@ class Menu:
         file.close()
         os.system('cmd /k "dot -Tpng grafico.dot -o grafico.png"')
         os.system('cmd /k "grafico.png"')
-        a = 1
+
     def cargarArchivo(self):
         root = tk.Tk()
         root.withdraw()
