@@ -1,13 +1,10 @@
 from ListaEnlazadaScript import ListaEnlazada
-from PisoScript import Piso
 import re
-import tkinter as tk
-from tkinter import filedialog
-import xml.etree.ElementTree as ET
-from PatronScript import Patron
 from pip._vendor.distlib.compat import raw_input
 import webbrowser
 import os
+import re
+import Archivo
 
 
 class Menu:
@@ -24,9 +21,10 @@ class Menu:
         patron = "[1-5]{1}"
         if re.search(patron, entrada):
             if entrada == "1":
-                self.cargarArchivo()
+                self.mostrarPisos()
+                Archivo.cargarArchivo(self)
                 self.menu()
-            elif entrada =="2":
+            elif entrada == "2":
                 self.subMenu1()
             elif entrada == "3":
                 raw_input("Presione una tecla" + "\n")
@@ -37,9 +35,11 @@ class Menu:
         print("\n")
         print("-----------------------------------------")
         print("1 Mostrar listado de pisos y patrones disponibles")
-        print("2 Mostrar patron")
+        print("2 Graficar patron")
         print("3 Seleccionar nuevo patron")
-        print("4 Regresar al menu principal...")
+        print("4 Costo cambio")
+        print("5 Instrucciones cambio")
+        print("6 Regresar al menu principal...")
         entrada = input("Ingrese un numero 1-4" + "\n")
         patron = "[1-4]{1}"
         if re.search(patron, entrada):
@@ -56,25 +56,12 @@ class Menu:
                 nuevo_cod = input("Ingrese el nuevo codigo del patron" + "\n")
                 self.nuevoPatron(nuevo_piso, nuevo_cod)
                 self.subMenu1()
-            elif entrada == "4":
+            elif entrada == "6":
                 print("\n")
                 print("-----------------------------------------")
                 self.menu()
             else:
                 self.menu()
-
-    def mostrarPisos(self):
-        for piso in self.lista_pisos:
-            print(piso.datos.nombre)
-            for patron in piso.datos.patrones:
-                print("--->" + patron.datos.cod)
-
-    def nuevoPatron(self, nuevo_piso, nuevo_cod):
-        # aqui busco el piso segun el nuevo nombre
-        piso_seleccionado = self.lista_pisos.buscarLista(nuevo_piso)
-        patron = self.lista_pisos.buscarPatron(piso_seleccionado, nuevo_cod)
-        self.nuevo_piso = piso_seleccionado
-        self.nuevo_patron = patron
 
     def subMenu2(self):
         print("\n")
@@ -87,7 +74,7 @@ class Menu:
         patron = "[1-6]{1}"
         if re.search(patron, entrada):
             if entrada == "1":
-                self.cargarArchivo()
+                Archivo.cargarArchivo(self)
             elif entrada == "2":
                 pass
             elif entrada == "3":
@@ -102,7 +89,7 @@ class Menu:
     def mostrarPatron(self, piso, cod):
         contenido = ""
         piso_seleccionado = self.lista_pisos.buscarLista(piso)
-        patron_seleccionado = self.lista_pisos.buscarPatron(piso_seleccionado,cod)
+        patron_seleccionado = self.lista_pisos.buscarPatron(piso_seleccionado, cod)
         contenido += "graph " + str(piso) + "{" + "\n"
         contenido += "node [shape=plain] \n splines=false \n"
         contador_struct = 1
@@ -155,28 +142,15 @@ class Menu:
         ruta = os.getcwd()
         webbrowser.open(ruta + '\\grafico.png')
 
-    def cargarArchivo(self):
-        root = tk.Tk()
-        root.withdraw()
-        nombre_archivo = filedialog.askopenfilename(initialdir="/", title="Seleccionar un archivo",
-                                                    filetypes=(("texto", "*.xml"), ("todos", "*.*")))
-        try:
-            with open(nombre_archivo, "r", encoding="utf8") as archivo:
-                arbol = ET.parse(nombre_archivo, parser=ET.XMLParser(encoding='iso-8859-5'))
-                raiz = arbol.getroot()
-                pisos = raiz.findall('piso')
-                for piso in pisos:
-                    patrones = ListaEnlazada()
-                    nombre_piso = piso.attrib['nombre']
-                    r = piso.find('R').text
-                    c = piso.find('C').text
-                    f = piso.find('F').text
-                    s = piso.find('S').text
-                    et_patrones = piso.find('patrones').findall('patron')
-                    for patron in et_patrones:
-                        codigo = patron.attrib['codigo']
-                        patron = patron.text
-                        patrones.append(Patron(codigo, patron))
-                    self.lista_pisos.append(Piso(nombre_piso, r, c, f, s, patrones))
-        except FileNotFoundError:
-            print("archivo no encontrado")
+    def mostrarPisos(self):
+        for piso in self.lista_pisos:
+            print(piso.datos.nombre)
+            for patron in piso.datos.patrones:
+                print("--->" + patron.datos.cod)
+
+    def nuevoPatron(self, nuevo_piso, nuevo_cod):
+        # aqui busco el piso segun el nuevo nombre
+        piso_seleccionado = self.lista_pisos.buscarLista(nuevo_piso)
+        patron = self.lista_pisos.buscarPatron(piso_seleccionado, nuevo_cod)
+        self.nuevo_piso = piso_seleccionado
+        self.nuevo_patron = patron

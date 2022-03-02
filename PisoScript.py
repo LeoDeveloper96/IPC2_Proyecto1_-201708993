@@ -7,6 +7,7 @@ class Piso:
         self.s = s
         self.patrones = patrones
 
+    # setters
     def setNombre(self, nombre):
         self.nombre = nombre
 
@@ -22,6 +23,7 @@ class Piso:
     def setCols(self, c):
         self.c = c
 
+    # getters
     def getCols(self):
         return self.c
 

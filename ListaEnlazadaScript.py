@@ -4,7 +4,6 @@ from NodoScript import Nodo
 class ListaEnlazada:
     def __init__(self):
         self.cabeza = None
-        self.cola = None
 
     # insertar al principio
     def preppend(self, datos):
