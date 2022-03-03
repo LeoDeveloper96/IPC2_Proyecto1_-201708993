@@ -1,3 +1,4 @@
+import os
 import tkinter as tk
 from tkinter import filedialog
 import xml.etree.ElementTree as ET
@@ -9,10 +10,11 @@ from ListaEnlazadaScript import ListaEnlazada
 def cargarArchivo(self):
     root = tk.Tk()
     root.withdraw()
-    nombre_archivo = filedialog.askopenfilename(initialdir="/", title="Seleccionar un archivo",
+    ruta = os.getcwd() + "\\Archivos prueba"
+    nombre_archivo = filedialog.askopenfilename(initialdir=ruta, title="Seleccionar un archivo",
                                                 filetypes=(("texto", "*.xml"), ("todos", "*.*")))
     try:
-        with open(nombre_archivo, "r", encoding="utf8") as archivo:
+        with open(nombre_archivo, "r", encoding="utf8"):
             arbol = ET.parse(nombre_archivo, parser=ET.XMLParser(encoding='iso-8859-5'))
             raiz = arbol.getroot()
             pisos = raiz.findall('piso')

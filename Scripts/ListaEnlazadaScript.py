@@ -68,8 +68,8 @@ class ListaEnlazada:
             yield nodo
             nodo = nodo.siguiente
 
-    # buscar un piso en la lista por nombre
-    def buscarLista(self, dato):
+    # buscar un piso en la lista por nombre, devuelve un objeto tipo Piso
+    def buscarPiso(self, dato):
         position = 0
         encontrado = 0
         nodo = None
@@ -82,6 +82,7 @@ class ListaEnlazada:
                 if nodo_temp.datos.nombre == dato:
                     nodo = nodo_temp
                     encontrado = 1
+                    break
                 nodo_temp = nodo_temp.siguiente
         if encontrado == 0:
             print("El valor no existe en la lista")
@@ -89,7 +90,7 @@ class ListaEnlazada:
             # devuelvo el piso
             return nodo
 
-    # buscar un patron en la lista por nombre
+    # buscar un patron en la lista por nombre, devuelve un objeto tipo Patron
     def buscarPatron(self, piso, cod):
         patron_seleccionado = None
         iterador = piso.datos.patrones.cabeza

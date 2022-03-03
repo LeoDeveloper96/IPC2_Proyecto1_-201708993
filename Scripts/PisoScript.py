@@ -38,3 +38,10 @@ class Piso:
 
     def getCostoSwitch(self):
         return self.s
+
+
+def mostrarPisos(self):
+    for piso in self.lista_pisos:
+        print(piso.datos.nombre)
+        for patron in piso.datos.patrones:
+            print("--->" + patron.datos.cod)
