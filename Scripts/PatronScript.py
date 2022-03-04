@@ -1,6 +1,7 @@
 import os
 import webbrowser
 import re
+import numpy as np
 
 
 class Patron:
@@ -36,6 +37,8 @@ def mostrarPatron(self, piso, cod):
     if (self.nuevo_patron and self.nuevo_piso) is None:
         piso_seleccionado = self.lista_pisos.buscarPiso(piso)
         patron_seleccionado = self.lista_pisos.buscarPatron(piso_seleccionado, cod)
+        self.piso_original = piso_seleccionado
+        self.patron_original = patron_seleccionado
     else:
         piso_seleccionado = self.nuevo_piso
         patron_seleccionado = self.nuevo_patron
@@ -52,7 +55,6 @@ def mostrarPatron(self, piso, cod):
     contador_puerto = 0
     contador = 1
     patron_separado = re.findall('.{' + str(columnas) + '}', patron)
-
     for fila in patron_separado:
         for caracter in fila:
             if caracter.lower() == "w":
@@ -90,3 +92,39 @@ def mostrarPatron(self, piso, cod):
     file.close()
     os.system('cmd /C "dot -Tpng ' + ruta + '\\Graficas\\grafico.dot -o ' + ruta + '\\Graficas\\grafico.png"')
     webbrowser.open(ruta + '\\Graficas\\grafico.png')
+
+
+def costoMin(self):
+    costo_f = int(self.piso_original.datos.f)
+    costo_s = int(self.piso_original.datos.s)
+    num_switch = 0
+    negras_mat1 = 0
+    negras_mat2 = 0
+
+    # calculo el numero de flips
+    for c in re.sub("\n", "", self.patron_original.datos.patron):
+        if c.lower() == "b":
+            negras_mat1 += 1
+
+    for c in re.sub("\n", "", self.nuevo_patron.datos.patron):
+        if c.lower() == "b":
+            negras_mat2 += 1
+
+    num_flips = abs(negras_mat1 - negras_mat2)
+
+    # calculo el numero de switch
+    patron1 = re.sub("\n", "", self.patron_original.datos.patron)
+    patron2 = re.sub("\n", "", self.nuevo_patron.datos.patron)
+    matriz1 = None
+    matriz2 = None
+    if int(self.piso_original.datos.r) == 1:
+        matriz1 = np.array(list(patron1))
+        matriz2 = np.array(list(patron2))
+    else:
+        matriz1 = np.matrix('; '.join(patron1[i:i + int(self.piso_original.datos.c)] for i in
+                                      range(0, len(patron1), int(self.piso_original.datos.c))))
+
+        matriz2 = np.matrix('; '.join(patron2[i:i + int(self.piso_original.datos.c)] for i in
+                                      range(0, len(patron2), int(self.piso_original.datos.c))))
+    a = 1
+    return (num_flips * costo_f) + (num_switch * costo_s)

@@ -1,29 +1,38 @@
-graph ejemplo01{
+graph ejemplo02{
 node [shape=plain] 
  splines=false 
 struct1 [label=<
 <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="0">
 <TR>
-<TD PORT="f0" bgcolor="black" width="25" height="25" fixedsize="true"></TD>
-<TD PORT="f1" bgcolor="white" width="25" height="25" fixedsize="true"></TD>
+<TD PORT="f0" bgcolor="white" width="25" height="25" fixedsize="true"></TD>
+<TD PORT="f1" bgcolor="black" width="25" height="25" fixedsize="true"></TD>
 <TD PORT="f2" bgcolor="black" width="25" height="25" fixedsize="true"></TD>
-<TD PORT="f3" bgcolor="white" width="25" height="25" fixedsize="true"></TD>
 </TR> 
 </TABLE >>];
  
 struct2 [label=<
 <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="0">
 <TR>
+<TD PORT="f3" bgcolor="black" width="25" height="25" fixedsize="true"></TD>
 <TD PORT="f4" bgcolor="white" width="25" height="25" fixedsize="true"></TD>
-<TD PORT="f5" bgcolor="white" width="25" height="25" fixedsize="true"></TD>
-<TD PORT="f6" bgcolor="white" width="25" height="25" fixedsize="true"></TD>
-<TD PORT="f7" bgcolor="white" width="25" height="25" fixedsize="true"></TD>
+<TD PORT="f5" bgcolor="black" width="25" height="25" fixedsize="true"></TD>
 </TR> 
 </TABLE >>];
  
-struct1:f0 -- struct2:f4[style=invis];
-struct1:f1 -- struct2:f5[style=invis];
-struct1:f2 -- struct2:f6[style=invis];
-struct1:f3 -- struct2:f7[style=invis];
+struct3 [label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="0">
+<TR>
+<TD PORT="f6" bgcolor="white" width="25" height="25" fixedsize="true"></TD>
+<TD PORT="f7" bgcolor="white" width="25" height="25" fixedsize="true"></TD>
+<TD PORT="f8" bgcolor="white" width="25" height="25" fixedsize="true"></TD>
+</TR> 
+</TABLE >>];
+ 
+struct1:f0 -- struct2:f3[style=invis];
+struct1:f1 -- struct2:f4[style=invis];
+struct1:f2 -- struct2:f5[style=invis];
+struct2:f0 -- struct3:f3[style=invis];
+struct2:f1 -- struct3:f4[style=invis];
+struct2:f2 -- struct3:f5[style=invis];
 
 }
