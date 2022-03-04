@@ -121,10 +121,18 @@ def costoMin(self):
         matriz1 = np.array(list(patron1))
         matriz2 = np.array(list(patron2))
     else:
-        matriz1 = np.matrix('; '.join(patron1[i:i + int(self.piso_original.datos.c)] for i in
-                                      range(0, len(patron1), int(self.piso_original.datos.c))))
+        # blanco = 0
+        # negro  = 1
+        patron1 = convertirPatron(patron1)
+        patron2 = convertirPatron(patron2)
+        matriz1 = np.matrix(re.sub("", " ", '; '.join(patron1[i:i + int(self.piso_original.datos.c)] for i in range(0, len(patron1), int(self.piso_original.datos.c)))))
+        matriz2 = np.matrix(re.sub("", " ", '; '.join(patron2[i:i + int(self.piso_original.datos.c)] for i in range(0, len(patron2), int(self.piso_original.datos.c)))))
 
-        matriz2 = np.matrix('; '.join(patron2[i:i + int(self.piso_original.datos.c)] for i in
-                                      range(0, len(patron2), int(self.piso_original.datos.c))))
-    a = 1
     return (num_flips * costo_f) + (num_switch * costo_s)
+
+
+def convertirPatron(patron):
+    patron = str(patron).lower()
+    patron = re.sub('w', '0', patron)
+    patron = re.sub('b', '1', patron)
+    return patron
