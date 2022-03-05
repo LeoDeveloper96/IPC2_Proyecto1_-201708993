@@ -1,7 +1,8 @@
 import os
 import webbrowser
 import re
-import numpy as np
+
+from Scripts.Estructuras.MatrizOrtogonal.MatrizDispersa import MatrizDispersa
 
 
 class Patron:
@@ -100,7 +101,8 @@ def costoMin(self):
     num_switch = 0
     negras_mat1 = 0
     negras_mat2 = 0
-
+    cols = int(self.piso_original.datos.c)
+    fils = int(self.piso_original.datos.f)
     # calculo el numero de flips
     for c in re.sub("\n", "", self.patron_original.datos.patron):
         if c.lower() == "b":
@@ -115,24 +117,29 @@ def costoMin(self):
     # calculo el numero de switch
     patron1 = re.sub("\n", "", self.patron_original.datos.patron)
     patron2 = re.sub("\n", "", self.nuevo_patron.datos.patron)
-    matriz1 = None
-    matriz2 = None
-    if int(self.piso_original.datos.r) == 1:
-        matriz1 = np.array(list(patron1))
-        matriz2 = np.array(list(patron2))
-    else:
-        # blanco = 0
-        # negro  = 1
-        patron1 = convertirPatron(patron1)
-        patron2 = convertirPatron(patron2)
-        matriz1 = np.matrix(re.sub("", " ", '; '.join(patron1[i:i + int(self.piso_original.datos.c)] for i in range(0, len(patron1), int(self.piso_original.datos.c)))))
-        matriz2 = np.matrix(re.sub("", " ", '; '.join(patron2[i:i + int(self.piso_original.datos.c)] for i in range(0, len(patron2), int(self.piso_original.datos.c)))))
+    matriz1 = crearMatriz(patron1, cols, fils)
+    matriz2 = crearMatriz(patron2, cols, fils)
+
+    lista_correctas = celdasIncorrectas(matriz1, patron2)
 
     return (num_flips * costo_f) + (num_switch * costo_s)
 
 
-def convertirPatron(patron):
-    patron = str(patron).lower()
-    patron = re.sub('w', '0', patron)
-    patron = re.sub('b', '1', patron)
-    return patron
+def celdasIncorrectas(mat1, patron2):
+   contador = 0
+   for fila in mat1.filas:
+       for col in mat1.columnas:
+           pass
+
+
+
+
+
+def crearMatriz(patron, cols, fils):
+    contador = 0
+    mat = MatrizDispersa()
+    for i in range(1, fils + 1):
+        for j in range(1, cols + 1):
+            mat.insert(i, j, patron[contador], False)
+            contador += 1
+    return mat

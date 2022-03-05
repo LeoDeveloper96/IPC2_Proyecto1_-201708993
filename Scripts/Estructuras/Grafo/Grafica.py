@@ -1,4 +1,4 @@
-from Scripts.Vertice import Vertice
+from Scripts.Estructuras.Grafo.Vertice import Vertice
 
 
 class Grafica:

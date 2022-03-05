@@ -1,4 +1,4 @@
-from NodoScript import Nodo
+from Scripts.Estructuras.ListaEnlazadaSimple.NodoScript import Nodo
 
 
 class ListaEnlazada:

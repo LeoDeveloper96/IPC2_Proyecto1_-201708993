@@ -1,9 +1,10 @@
-from ListaEnlazadaScript import ListaEnlazada
+from Scripts.Estructuras.ListaEnlazadaSimple import PisoScript, PatronScript
+from Scripts.Estructuras.ListaEnlazadaSimple.ListaEnlazadaScript import ListaEnlazada
 from pip._vendor.distlib.compat import raw_input
 import re
-import Archivo
-import PisoScript
-import PatronScript
+
+from Scripts.Estructuras.MatrizOrtogonal.MatrizDispersa import MatrizDispersa
+from Scripts.Utilidades import Archivo
 
 
 class Menu:

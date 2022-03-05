@@ -2,9 +2,9 @@ import os
 import tkinter as tk
 from tkinter import filedialog
 import xml.etree.ElementTree as ET
-from PatronScript import Patron
-from PisoScript import Piso
-from ListaEnlazadaScript import ListaEnlazada
+from Scripts.Estructuras.ListaEnlazadaSimple.PatronScript import Patron
+from Scripts.Estructuras.ListaEnlazadaSimple.PisoScript import Piso
+from Scripts.Estructuras.ListaEnlazadaSimple.ListaEnlazadaScript import ListaEnlazada
 
 
 def cargarArchivo(self):
