@@ -72,7 +72,7 @@ class Menu:
             print("El costo min es: " + str(PatronScript.costoMin(self)) + "\n")
             self.subMenu1()
         elif entrada == "5":
-            print(self.instrucciones)
+            self.subMenu2()
             self.subMenu1()
         elif entrada == "6":
             print("\n")
@@ -80,3 +80,24 @@ class Menu:
             self.menu()
         else:
             self.menu()
+
+    def subMenu2(self):
+        print("\n")
+        print("-----------------------------------------")
+        print("1 Mostrar en consola")
+        print("2 Guardar en archivo")
+        print("3 Volver al menu anterior")
+        entrada = input("Ingrese un numero 1-3" + "\n")
+        patron = "[1-3]{1}"
+
+        if not re.search(patron, entrada): return self.subMenu1()
+
+        if entrada == "1":
+            print(self.instrucciones)
+            self.subMenu2()
+        elif entrada == "2":
+            nombre = input("Ingrese el nombre del archivo con su extensión" + "\n")
+            Archivo.crearArchivo(self, nombre)
+            self.subMenu1()
+        elif entrada == "3":
+            self.subMenu1()

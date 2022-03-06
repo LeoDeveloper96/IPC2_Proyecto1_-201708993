@@ -147,14 +147,14 @@ def calculoSwitch(self,mat,patron2):
                         # esto cuenta como un intercambio
                         switch += 1
                         # Escribo la instruccion correspondiente
-                        self.instrucciones += " Intercambiar las columnas " + "(" + str(col.coordenadaX)+", " + str(col.coordenadaY)+")" + "por: " + "(" + str(col.derecha.coordenadaX)+", " + str(col.derecha.coordenadaY)+")"+"\n"
+                        self.instrucciones += " Intercambiar las celdas " + "(" + str(col.coordenadaX)+", " + str(col.coordenadaY)+")" + "por: " + "(" + str(col.derecha.coordenadaX)+", " + str(col.derecha.coordenadaY)+")"+"\n"
                     elif col.izquierda is not None and (col.izquierda.correcto == False and col.caracter.lower() != col.izquierda.caracter.lower()):
                         col.correcto = True
                         col.izquierda.correcto = True
                         col.caracter = col.izquierda.caracter
                         col.izquierda.caracter = caracter
                         switch += 1
-                        self.instrucciones += " Intercambiar las columnas " + "(" + str(col.coordenadaX) + ", " + str(
+                        self.instrucciones += " Intercambiar las celdas " + "(" + str(col.coordenadaX) + ", " + str(
                             col.coordenadaY) + ")" + "por: " + "(" + str(col.izquierda.coordenadaX) + ", " + str(
                             col.izquierda.coordenadaY) + ")" + "\n"
                     elif col.arriba is not None and (col.arriba.correcto == False and col.caracter.lower() != col.arriba.caracter.lower()):
@@ -163,7 +163,7 @@ def calculoSwitch(self,mat,patron2):
                         col.caracter = col.arriba.caracter
                         col.arriba.caracter = caracter
                         switch += 1
-                        self.instrucciones += " Intercambiar las columnas " + "(" + str(col.coordenadaX) + ", " + str(
+                        self.instrucciones += " Intercambiar las celdas " + "(" + str(col.coordenadaX) + ", " + str(
                             col.coordenadaY) + ")" + "por: " + "(" + str(col.arriba.coordenadaX) + ", " + str(
                             col.arriba.coordenadaY) + ")" + "\n"
                     elif col.abajo is not None and (col.abajo.correcto == False and col.caracter.lower() != col.abajo.caracter.lower()):
@@ -172,12 +172,12 @@ def calculoSwitch(self,mat,patron2):
                         col.caracter = col.abajo.caracter
                         col.abajo.caracter = caracter
                         switch += 1
-                        self.instrucciones += " Intercambiar las columnas " + "(" + str(col.coordenadaX) + ", " + str(
+                        self.instrucciones += " Intercambiar las celdas " + "(" + str(col.coordenadaX) + ", " + str(
                             col.coordenadaY) + ")" + "por: " + "(" + str(col.abajo.coordenadaX) + ", " + str(
                             col.abajo.coordenadaY) + ")" + "\n"
                     # esto es un flip
                     else:
-                        self.instrucciones += "Hacerle flip a la col: " + "("+str(col.coordenadaX)+", "+str(col.coordenadaY)+")"+"\n"
+                        self.instrucciones += "Hacerle flip a la celda: " + "("+str(col.coordenadaX)+", "+str(col.coordenadaY)+")"+"\n"
                         if col.caracter.lower() == "w":
                             col.caracter = "b"
                         else:
@@ -206,9 +206,9 @@ def calculoSwitch(self,mat,patron2):
                             col.derecha.correcto = False
                         else:
                             col.derecha.correcto = True
-                        self.instrucciones += "Intercambiar las columnas " + "("+str(col.coordenadaX) + ", " + str(col.coordenadaY) + ")" + " por: " + "(" + str(col.derecha.coordenadaX) + ", " + str(col.derecha.coordenadaY) + ")" + "\n"
+                        self.instrucciones += "Intercambiar las celdas " + "("+str(col.coordenadaX) + ", " + str(col.coordenadaY) + ")" + " por: " + "(" + str(col.derecha.coordenadaX) + ", " + str(col.derecha.coordenadaY) + ")" + "\n"
                     else:
-                        self.instrucciones += "Hacerle flip a la col: " + "(" + str(col.coordenadaX) + ", " + str(
+                        self.instrucciones += "Hacerle flip a la celda: " + "(" + str(col.coordenadaX) + ", " + str(
                             col.coordenadaY) + ")" + "\n"
                         col.correcto = True
                 else:

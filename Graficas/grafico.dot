@@ -4,11 +4,11 @@ node [shape=plain]
 struct1 [label=<
 <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="0">
 <TR>
-<TD PORT="f0" bgcolor="white" width="25" height="25" fixedsize="true"></TD>
+<TD PORT="f0" bgcolor="black" width="25" height="25" fixedsize="true"></TD>
 <TD PORT="f1" bgcolor="black" width="25" height="25" fixedsize="true"></TD>
 <TD PORT="f2" bgcolor="black" width="25" height="25" fixedsize="true"></TD>
-<TD PORT="f3" bgcolor="black" width="25" height="25" fixedsize="true"></TD>
-<TD PORT="f4" bgcolor="black" width="25" height="25" fixedsize="true"></TD>
+<TD PORT="f3" bgcolor="white" width="25" height="25" fixedsize="true"></TD>
+<TD PORT="f4" bgcolor="white" width="25" height="25" fixedsize="true"></TD>
 </TR> 
 </TABLE >>];
  

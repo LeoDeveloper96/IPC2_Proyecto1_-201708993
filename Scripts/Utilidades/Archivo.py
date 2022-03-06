@@ -34,3 +34,14 @@ def cargarArchivo(self):
                 a = 1
     except FileNotFoundError:
         print("archivo no encontrado")
+
+
+def crearArchivo(self, nombre):
+
+    ruta = tk.filedialog.askdirectory()
+    ruta += "\\" + nombre
+    try:
+        with open(ruta, 'w') as f:
+            f.write(self.instrucciones)
+    except FileNotFoundError:
+        print("No existe el directorio")
