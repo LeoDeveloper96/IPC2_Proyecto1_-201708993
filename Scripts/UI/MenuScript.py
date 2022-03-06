@@ -20,7 +20,7 @@ class Menu:
         print("2 Opciones Patron")
         print("3 Salir")
         entrada = input("Ingrese un numero 1-5" + "\n")
-        patron = "[1-5]{1}"
+        patron = "[1-3]{1}"
 
         # cláusula de guarda
         if not re.search(patron, entrada): return self.menu()
@@ -44,7 +44,7 @@ class Menu:
         print("5 Instrucciones cambio")
         print("6 Regresar al menu principal...")
         entrada = input("Ingrese un numero 1-4" + "\n")
-        patron = "[1-4]{1}"
+        patron = "[1-6]{1}"
 
         if not re.search(patron, entrada): return self.menu()
 

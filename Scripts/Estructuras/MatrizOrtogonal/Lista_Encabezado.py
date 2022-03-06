@@ -49,3 +49,10 @@ class Lista_Encabezado:
                 return tmp
             tmp = tmp.siguiente
         return None
+
+    # iterar sobre la lista
+    def __iter__(self):
+        nodo = self.primero
+        while nodo:
+            yield nodo
+            nodo = nodo.siguiente

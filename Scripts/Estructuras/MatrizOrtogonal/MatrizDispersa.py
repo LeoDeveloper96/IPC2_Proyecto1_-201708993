@@ -4,8 +4,8 @@ from Scripts.Estructuras.MatrizOrtogonal.Nodo_Encabezado import Nodo_Encabezado
 
 class Nodo_Interno:
 
-    def __init__(self, x, y, caracter, correcto):
-        self.correcto = correcto
+    def __init__(self, x, y, caracter):
+        self.correcto = True
         self.caracter = caracter
         self.coordenadaX = x
         self.coordenadaY = y
@@ -14,6 +14,30 @@ class Nodo_Interno:
         self.derecha = None
         self.izquierda = None
 
+    def setCorrecto(self, correcto):
+        self.correcto = correcto
+
+    def getCorrecto(self):
+        return self.correcto
+
+    def setCaracter(self, caracter):
+        self.caracter = caracter
+
+    def getCaracter(self):
+        return self.caracter
+
+    def setCoordX(self, x):
+        self.coordenadaX = x
+
+    def getCoordX(self):
+        return self.coordenadaX
+
+    def setCoordy(self, y):
+        self.coordenadaY = y
+
+    def getCoordY(self):
+        return self.coordenadaY
+
 
 class MatrizDispersa:
 
@@ -21,8 +45,8 @@ class MatrizDispersa:
         self.filas = Lista_Encabezado('fila')
         self.columnas = Lista_Encabezado('columna')
 
-    def insert(self, pos_x, pos_y, caracter, correcto):
-        nuevo = Nodo_Interno(pos_x, pos_y, caracter, correcto)
+    def insert(self, pos_x, pos_y, caracter):
+        nuevo = Nodo_Interno(pos_x, pos_y, caracter)
         nodo_X = self.filas.getEncabezado(pos_x)
         nodo_Y = self.columnas.getEncabezado(pos_y)
 

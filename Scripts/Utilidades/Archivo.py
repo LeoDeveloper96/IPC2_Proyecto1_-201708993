@@ -31,5 +31,6 @@ def cargarArchivo(self):
                     patron = patron.text
                     patrones.append(Patron(codigo, patron))
                 self.lista_pisos.append(Piso(nombre_piso, r, c, f, s, patrones))
+                a = 1
     except FileNotFoundError:
         print("archivo no encontrado")

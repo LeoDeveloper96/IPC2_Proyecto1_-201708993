@@ -5,3 +5,10 @@ class Nodo_Encabezado:
         self.siguiente = None
         self.anterior = None
         self.acceso = None
+
+   # iterar sobre la lista
+    def __iter__(self):
+        nodo = self.acceso
+        while nodo:
+            yield nodo
+            nodo = nodo.derecha
