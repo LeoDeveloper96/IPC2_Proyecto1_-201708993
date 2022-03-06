@@ -129,6 +129,7 @@ def costoMin(self):
 def calculoSwitch(self,mat,patron2):
     switch = 0
     contador = 0
+    # si la matriz tiene mas de una fila
     if mat.filas.size > 1:
         for fila in mat.filas:
             for col in fila:
@@ -182,6 +183,7 @@ def calculoSwitch(self,mat,patron2):
                         else:
                             col.caracter = "w"
                         col.correcto = True
+    #   si la matriz es de 1xn
     else:
         for fila in mat.filas:
             for col in fila:
@@ -189,8 +191,30 @@ def calculoSwitch(self,mat,patron2):
                     switch += 1
                 contador += 1
 
+    #     escribo la cadena de instrucciones para matrices de 1xn
+        contador2 = 0
+        for fila in mat.filas:
+            for col in fila:
+                if not col.correcto:
+                    caracter = col.caracter.lower()
+                    # reviso que la col de la derecha no esté vacia y que tenga el color opuesto
+                    if col.derecha is not None and col.caracter.lower() != col.derecha.caracter.lower():
+                        col.correcto = True
+                        col.caracter = col.derecha.caracter
+                        col.derecha.caracter = caracter
+                        if col.derecha.caracter.lower() != patron2[contador2+1].lower():
+                            col.derecha.correcto = False
+                        else:
+                            col.derecha.correcto = True
+                        self.instrucciones += "Intercambiar las columnas " + "("+str(col.coordenadaX) + ", " + str(col.coordenadaY) + ")" + " por: " + "(" + str(col.derecha.coordenadaX) + ", " + str(col.derecha.coordenadaY) + ")" + "\n"
+                    else:
+                        self.instrucciones += "Hacerle flip a la col: " + "(" + str(col.coordenadaX) + ", " + str(
+                            col.coordenadaY) + ")" + "\n"
+                        col.correcto = True
+                else:
+                    continue
+                contador2 += 1
     return switch
-
 
 
 def marcarIncorrectas(mat1, patron2):
