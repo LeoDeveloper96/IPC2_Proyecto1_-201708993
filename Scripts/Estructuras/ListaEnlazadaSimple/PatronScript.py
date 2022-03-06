@@ -120,11 +120,13 @@ def costoMin(self):
     patron2 = re.sub("\n", "", self.nuevo_patron.datos.patron)
     matriz1 = crearMatriz(patron1, cols, fils)
     marcarIncorrectas(matriz1, patron2)
-    num_switch = calculoSwitch(matriz1, patron2)
+    num_switch = calculoSwitch(self,matriz1, patron2)
+
+    # la respuesta final
     return (num_flips * costo_f) + (num_switch * costo_s)
 
 
-def calculoSwitch(mat,patron2):
+def calculoSwitch(self,mat,patron2):
     switch = 0
     contador = 0
     if mat.filas.size > 1:
@@ -135,31 +137,46 @@ def calculoSwitch(mat,patron2):
                     # reviso que la columna en cualquier direccion, excepto diagonal, no esté vacia, sea invalida y tenga
                     # el color opuesto
                     if col.derecha is not None and (col.derecha.correcto == False and col.caracter.lower() != col.derecha.caracter.lower()):
+                        # marco las casillas como corregidas
                         col.correcto = True
                         col.derecha.correcto = True
+                        # intercambio los valores
                         col.caracter = col.derecha.caracter
                         col.derecha.caracter = caracter
+                        # esto cuenta como un intercambio
                         switch += 1
+                        # Escribo la instruccion correspondiente
+                        self.instrucciones += " Intercambiar las columnas " + "(" + str(col.coordenadaX)+", " + str(col.coordenadaY)+")" + "por: " + "(" + str(col.derecha.coordenadaX)+", " + str(col.derecha.coordenadaY)+")"+"\n"
                     elif col.izquierda is not None and (col.izquierda.correcto == False and col.caracter.lower() != col.izquierda.caracter.lower()):
                         col.correcto = True
                         col.izquierda.correcto = True
                         col.caracter = col.izquierda.caracter
                         col.izquierda.caracter = caracter
                         switch += 1
+                        self.instrucciones += " Intercambiar las columnas " + "(" + str(col.coordenadaX) + ", " + str(
+                            col.coordenadaY) + ")" + "por: " + "(" + str(col.izquierda.coordenadaX) + ", " + str(
+                            col.izquierda.coordenadaY) + ")" + "\n"
                     elif col.arriba is not None and (col.arriba.correcto == False and col.caracter.lower() != col.arriba.caracter.lower()):
                         col.correcto = True
                         col.arriba.correcto = True
                         col.caracter = col.arriba.caracter
                         col.arriba.caracter = caracter
                         switch += 1
+                        self.instrucciones += " Intercambiar las columnas " + "(" + str(col.coordenadaX) + ", " + str(
+                            col.coordenadaY) + ")" + "por: " + "(" + str(col.arriba.coordenadaX) + ", " + str(
+                            col.arriba.coordenadaY) + ")" + "\n"
                     elif col.abajo is not None and (col.abajo.correcto == False and col.caracter.lower() != col.abajo.caracter.lower()):
                         col.correcto = True
                         col.abajo.correcto = True
                         col.caracter = col.abajo.caracter
                         col.abajo.caracter = caracter
                         switch += 1
+                        self.instrucciones += " Intercambiar las columnas " + "(" + str(col.coordenadaX) + ", " + str(
+                            col.coordenadaY) + ")" + "por: " + "(" + str(col.abajo.coordenadaX) + ", " + str(
+                            col.abajo.coordenadaY) + ")" + "\n"
                     # esto es un flip
                     else:
+                        self.instrucciones += "Hacerle flip a la col: " + "("+str(col.coordenadaX)+", "+str(col.coordenadaY)+")"+"\n"
                         if col.caracter.lower() == "w":
                             col.caracter = "b"
                         else:
@@ -171,7 +188,9 @@ def calculoSwitch(mat,patron2):
                 if col.caracter.lower() != patron2[contador].lower():
                     switch += 1
                 contador += 1
+
     return switch
+
 
 
 def marcarIncorrectas(mat1, patron2):

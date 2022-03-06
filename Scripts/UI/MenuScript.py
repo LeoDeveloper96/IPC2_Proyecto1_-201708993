@@ -13,6 +13,7 @@ class Menu:
     piso_original = None
     nuevo_patron = None
     nuevo_piso = None
+    instrucciones = ""
 
     def menu(self):
         print("\n")
@@ -69,6 +70,9 @@ class Menu:
             self.subMenu1()
         elif entrada == "4":
             print("El costo min es: " + str(PatronScript.costoMin(self)) + "\n")
+            self.subMenu1()
+        elif entrada == "5":
+            print(self.instrucciones)
             self.subMenu1()
         elif entrada == "6":
             print("\n")
