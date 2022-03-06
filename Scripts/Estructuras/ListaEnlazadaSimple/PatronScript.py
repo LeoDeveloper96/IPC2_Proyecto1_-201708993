@@ -101,8 +101,8 @@ def costoMin(self):
     num_switch = 0
     negras_mat1 = 0
     negras_mat2 = 0
-    cols = int(self.piso_original.datos.r)
-    fils = int(self.piso_original.datos.c)
+    cols = int(self.piso_original.datos.c)
+    fils = int(self.piso_original.datos.r)
 
     # calculo el numero de flips
     for c in re.sub("\n", "", self.patron_original.datos.patron):
@@ -120,52 +120,57 @@ def costoMin(self):
     patron2 = re.sub("\n", "", self.nuevo_patron.datos.patron)
     matriz1 = crearMatriz(patron1, cols, fils)
     marcarIncorrectas(matriz1, patron2)
-    num_switch = calculoSwitch(matriz1)
+    num_switch = calculoSwitch(matriz1, patron2)
     return (num_flips * costo_f) + (num_switch * costo_s)
 
 
-def calculoSwitch(mat):
+def calculoSwitch(mat,patron2):
     switch = 0
     contador = 0
-    for fila in mat.filas:
-        for col in fila:
-            if not col.correcto:
-                caracter = col.caracter.lower()
-                # reviso que la columna en cualquier direccion, excepto diagonal, no esté vacia, sea invalida y tenga
-                # el color opuesto
-                if col.derecha is not None and (col.derecha.correcto == False and col.caracter.lower() != col.derecha.caracter.lower()):
-                    col.correcto = True
-                    col.derecha.correcto = True
-                    col.caracter = col.derecha.caracter
-                    col.derecha.caracter = caracter
-                    switch += 1
-                elif col.izquierda is not None and (col.izquierda.correcto == False and col.caracter.lower() != col.izquierda.caracter.lower()):
-                    col.correcto = True
-                    col.izquierda.correcto = True
-                    col.caracter = col.izquierda.caracter
-                    col.izquierda.caracter = caracter
-                    switch += 1
-                elif col.arriba is not None and (col.arriba.correcto == False and col.caracter.lower() != col.arriba.caracter.lower()):
-                    col.correcto = True
-                    col.arriba.correcto = True
-                    col.caracter = col.arriba.caracter
-                    col.arriba.caracter = caracter
-                    switch += 1
-                elif col.abajo is not None and (col.abajo.correcto == False and col.caracter.lower() != col.abajo.caracter.lower()):
-                    col.correcto = True
-                    col.abajo.correcto = True
-                    col.caracter = col.abajo.caracter
-                    col.abajo.caracter = caracter
-                    switch += 1
-                # esto es un flip
-                else:
-                    if col.caracter.lower() == "w":
-                        col.caracter = "b"
+    if mat.filas.size > 1:
+        for fila in mat.filas:
+            for col in fila:
+                if not col.correcto:
+                    caracter = col.caracter.lower()
+                    # reviso que la columna en cualquier direccion, excepto diagonal, no esté vacia, sea invalida y tenga
+                    # el color opuesto
+                    if col.derecha is not None and (col.derecha.correcto == False and col.caracter.lower() != col.derecha.caracter.lower()):
+                        col.correcto = True
+                        col.derecha.correcto = True
+                        col.caracter = col.derecha.caracter
+                        col.derecha.caracter = caracter
+                        switch += 1
+                    elif col.izquierda is not None and (col.izquierda.correcto == False and col.caracter.lower() != col.izquierda.caracter.lower()):
+                        col.correcto = True
+                        col.izquierda.correcto = True
+                        col.caracter = col.izquierda.caracter
+                        col.izquierda.caracter = caracter
+                        switch += 1
+                    elif col.arriba is not None and (col.arriba.correcto == False and col.caracter.lower() != col.arriba.caracter.lower()):
+                        col.correcto = True
+                        col.arriba.correcto = True
+                        col.caracter = col.arriba.caracter
+                        col.arriba.caracter = caracter
+                        switch += 1
+                    elif col.abajo is not None and (col.abajo.correcto == False and col.caracter.lower() != col.abajo.caracter.lower()):
+                        col.correcto = True
+                        col.abajo.correcto = True
+                        col.caracter = col.abajo.caracter
+                        col.abajo.caracter = caracter
+                        switch += 1
+                    # esto es un flip
                     else:
-                        col.caracter = "w"
-                    col.correcto = True
-            contador += 1
-
+                        if col.caracter.lower() == "w":
+                            col.caracter = "b"
+                        else:
+                            col.caracter = "w"
+                        col.correcto = True
+    else:
+        for fila in mat.filas:
+            for col in fila:
+                if col.caracter.lower() != patron2[contador].lower():
+                    switch += 1
+                contador += 1
     return switch
 
 
