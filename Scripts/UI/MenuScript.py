@@ -1,9 +1,10 @@
+from Scripts.Algoritmos.QuickSort import quickSort
 from Scripts.Estructuras.ListaEnlazadaSimple import PisoScript, PatronScript
 from Scripts.Estructuras.ListaEnlazadaSimple.ListaEnlazadaScript import ListaEnlazada
 from pip._vendor.distlib.compat import raw_input
 import re
+import copy
 
-from Scripts.Estructuras.MatrizOrtogonal.MatrizDispersa import MatrizDispersa
 from Scripts.Utilidades import Archivo
 
 
@@ -27,7 +28,6 @@ class Menu:
         if not re.search(patron, entrada): return self.menu()
 
         if entrada == "1":
-            PisoScript.mostrarPisos(self)
             Archivo.cargarArchivo(self)
             self.menu()
         elif entrada == "2":
@@ -50,7 +50,7 @@ class Menu:
         if not re.search(patron, entrada): return self.menu()
 
         if entrada == "1":
-            PisoScript.mostrarPisos(self)
+            PisoScript.mostrarPisos(quickSort(copy.deepcopy(self.lista_pisos)))
             self.subMenu1()
         elif entrada == "2":
             piso = ""

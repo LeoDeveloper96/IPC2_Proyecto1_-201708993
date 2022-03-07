@@ -1,6 +1,7 @@
 from Scripts.Estructuras.ListaEnlazadaSimple.NodoScript import Nodo
 
 
+# Lista enlazada simple
 class ListaEnlazada:
     def __init__(self):
         self.cabeza = None
@@ -68,6 +69,21 @@ class ListaEnlazada:
             yield nodo
             nodo = nodo.siguiente
 
+    def __len__(self):
+        contador = 0
+        nodo = self.cabeza
+        if nodo is None:
+            return 0
+
+        while nodo:
+            if nodo.siguiente is None:
+                break
+            nodo = nodo.siguiente
+            contador += 1
+
+        return contador
+
+
     # buscar un piso en la lista por nombre, devuelve un objeto tipo Piso
     def buscarPiso(self, dato):
         position = 0
@@ -100,3 +116,17 @@ class ListaEnlazada:
                 break
             iterador = iterador.siguiente
         return patron_seleccionado
+
+    # pop
+    def pop(self):
+        if self.cabeza is None:
+            return
+        contador = 0
+        temp = self.cabeza
+        while temp:
+            if temp.siguiente is None:
+                break
+            contador += 1
+            temp = temp.siguiente
+        self.eliminar_pos(contador)
+        return temp

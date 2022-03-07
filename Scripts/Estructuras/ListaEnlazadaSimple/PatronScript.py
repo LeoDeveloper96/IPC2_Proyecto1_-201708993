@@ -6,6 +6,7 @@ from Scripts.Estructuras.MatrizOrtogonal.MatrizDispersa import MatrizDispersa
 
 
 class Patron:
+    # constructor
     def __init__(self, cod, patron):
         self.cod = cod
         self.patron = patron
@@ -21,6 +22,17 @@ class Patron:
 
     def getCod(self):
         return self.cod
+
+    # para obtener una representación del patron
+    def __repr__(self):
+        rep = 'patron(' + self.cod + ", " + self.patron+")"
+
+    # devuelvo el tamaño del patron
+    def __len__(self):
+        contador = 0
+        for c in re.sub("\n", "", self.patron):
+            contador += 1
+        return contador
 
 
 def nuevoPatron(self, nuevo_piso, nuevo_cod):

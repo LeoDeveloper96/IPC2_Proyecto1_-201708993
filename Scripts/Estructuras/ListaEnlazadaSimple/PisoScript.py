@@ -39,9 +39,13 @@ class Piso:
     def getCostoSwitch(self):
         return self.s
 
+    def __str__(self):
+        return f"Nombre piso: {self.nombre}"
 
-def mostrarPisos(self):
-    for piso in self.lista_pisos:
+
+# No está ordenado alfabeticamente
+def mostrarPisos(pisos):
+    for piso in pisos:
         print(piso.datos.nombre)
         for patron in piso.datos.patrones:
             print("--->" + patron.datos.cod)
