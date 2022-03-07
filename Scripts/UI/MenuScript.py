@@ -1,4 +1,4 @@
-from Scripts.Algoritmos.QuickSort import quickSort
+from Scripts.Algoritmos.QuickSort import quickSort,ordenarPatrones
 from Scripts.Estructuras.ListaEnlazadaSimple import PisoScript, PatronScript
 from Scripts.Estructuras.ListaEnlazadaSimple.ListaEnlazadaScript import ListaEnlazada
 from pip._vendor.distlib.compat import raw_input

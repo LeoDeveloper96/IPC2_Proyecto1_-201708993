@@ -16,3 +16,5 @@ def quickSort(lista):
 
     return quickSort(elementos_menores) + [pivote] + quickSort(elementos_mayores)
 
+
+
